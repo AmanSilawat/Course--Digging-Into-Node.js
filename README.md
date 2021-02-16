@@ -73,3 +73,135 @@ Hello world
 ```js
 process.stdin.read();
 ```
+
+## Command Line Scripts
+### Setting up a command line script
+
+Create a file `ex1.js`
+```js
+#!/usr/bin/env node
+'use strict';
+
+printHelp();
+
+function printHelp() {
+    console.log('ex1');
+    console.log('       some text');
+    console.log('');
+    console.log('--');
+}
+```
+
+How to write a command line script or a bash script.
+`#!` This symbol is called **hash bang**. It means interpreted as a bash script and `/usr/bin/env node` this line is find node wherever it is  in my system and use node to rest of program.
+
+<br />
+
+**First make your file is executable**
+
+```bash
+$ ls -la
+-rw-rw-r-- 1 aman aman  178 Feb 16 15:25 ex1.js
+```
+
+<br />
+
+`-rw-rw-r--` Make a user permission to execute this file through user`-rwxrw-r--`
+
+
+```bash
+$ chmod u+x ex1.js
+```
+
+
+```bash
+$ ls -la
+-rwxrw-r-- 1 aman aman  178 Feb 16 15:25 ex1.js
+```
+
+<br />
+
+Execute `ex1.js` file
+
+```bash
+$ ./ex1.js
+ex1
+       some text
+
+--
+```
+
+
+### Command Line Arguments
+
+#### Accepts argument
+```js
+#!/usr/bin/env node
+'use strict';
+console.log(process.argv);
+```
+
+```bash
+$ ./ex1.js --hello=world
+[
+  '/usr/local/bin/node',
+  '/home/aman/frontend/Course--Digging-Into-Node.js/command-line-script/ex1.js',
+  '--hello=world'
+]
+```
+
+First argument is where is my node js is installed, second then the fully qualified path to my ex1.js and third argument is my value passed into the file.
+
+<br />
+
+Splice first two argument.
+In my `ex1.js`
+```js
+#!/usr/bin/env node
+'use strict';
+console.log(process.argv.slice(2));
+```
+
+```bash
+$ ./ex1.js --hello=world
+[ '--hello=world' ]
+```
+
+<br />
+
+#### minimist
+install minimist package
+```
+$ npm i minimist
+```
+
+In my `ex1.js`
+```js
+let args = require('minimist')(process.argv.slice(2));
+console.log(args);
+```
+
+In my `terminal`
+```bash
+$ ./ex1.js --hello=world -a10
+{ _: [], hello: 'world', a: 10 }
+```
+
+<br />
+
+#### Configuration with minimist
+In my `ex1.js`
+```js
+let args = require('minimist')(process.argv.slice(2), {
+    boolean: ['help'],
+    string: ['file']
+});
+console.log(args);
+```
+
+In my `terminal`
+
+```bash
+$ ./ex1.js --help=foobar --file
+{ _: [], help: true, file: '' }
+```
