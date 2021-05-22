@@ -34,7 +34,7 @@ Both are slight different. `console.log` wrapper around `process.stdout.write` t
 create a file `console_error_and_process_stderr.js`
 ```js
 console.log('Hello World');
-console.log('Oops');
+console.error('Oops');
 ```
 
 ```bash

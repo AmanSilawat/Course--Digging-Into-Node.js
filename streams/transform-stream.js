@@ -45,6 +45,8 @@ function processFile(inStream) {
 
     let upperStream = new Transform({
         transform(chunk, enc, cb) {
+            console.log(chunk)
+            console.log(chunk.toString())
             this.push(chunk.toString().toUpperCase())
             setTimeout(cb, 500);
             // cb();
@@ -54,7 +56,7 @@ function processFile(inStream) {
     outStream = outStream.pipe(upperStream)
 
     let targetStream = process.stdout;
-    outStream.pipe(targetStream)
+    outStream.pipe(targetStream);
 }
 
 function error(msg, includeHelp = false) {

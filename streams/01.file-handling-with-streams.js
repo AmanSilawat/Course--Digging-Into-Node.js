@@ -19,6 +19,10 @@ if (process.env.HELLO) {
     console.log(process.env.HELLO)
 }
 
+if (process.env.ABC) {
+    console.log(process.env.ABC)
+}
+
 
 if (args.help) {
     printHelp();
@@ -27,6 +31,7 @@ if (args.help) {
     args.in ||
     args._.includes('-')
 ) {
+    console.log(process.stdin, 'stdinnnnnnn--in--in--in--in')
     processFile(process.stdin);
 }
 else if (args.file) {
@@ -65,6 +70,6 @@ function printHelp() {
 
 /*
 run in terminal correct path or wrong path
-$ HELLO=WORLD ./environment_variables.js
-$ BASE_PATH=files/ ./environment_variables.js --file=hello.txt
+$ HELLO=WORLD ./file-handling-with-streams.js
+$ BASE_PATH=files/ ./file-handling-with-streams.js --file=hello.txt
 */
